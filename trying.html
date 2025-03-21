@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Statistik Kepribadian</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Rubik:wght@400;500;700&display=swap");
+
+      body {
+        background: linear-gradient(135deg, #c2e9fb, #a1c4fd);
+        font-family: "Rubik", sans-serif;
+        color: #333;
+      }
+
+      .container {
+        max-width: 700px;
+        background: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        margin-top: 50px;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .container:hover {
+        transform: translateY(-5px);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .btn-primary {
+        background: linear-gradient(90deg, #ff758c, #ff7eb3);
+        border: none;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        padding: 10px 20px;
+        border-radius: 8px;
+        transition: background 0.3s ease-in-out, transform 0.2s;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(90deg, #ff5f6d, #ff6b9f);
+        transform: scale(1.05);
+      }
+
+      .form-label {
+        font-weight: 500;
+        color: #444;
+      }
+
+      .form-select {
+        border-radius: 8px;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        transition: border 0.3s ease-in-out;
+      }
+
+      .form-select:focus {
+        border-color: #ff758c;
+        outline: none;
+        box-shadow: 0 0 5px rgba(255, 117, 140, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container text-center">
+      <h2>🔢 Kuis Statistik Kepribadian 📊</h2>
+      <p>Masukkan namamu dan jawab pertanyaan berikut untuk mengetahui apakah kamu cocok masuk ke Program Studi Statistika UII!</p>
+
+      <div class="mb-3">
+        <label class="form-label">Nama:</label>
+        <input type="text" id="nama" class="form-control" placeholder="Masukkan namamu" />
+      </div>
+
+      <button class="btn btn-success w-100 mb-3" onclick="mulaiKuis()">🚀 Start Kuis</button>
+
+      <h3 id="namaPeserta" class="text-center hidden"></h3>
+
+      <form id="quizForm" class="hidden">
+        <div class="mb-3">
+          <label class="form-label"> Apa yang paling menarik dari belajar statistik?</label>
+          <select class="form-select" name="q1">
+            <option value="analitis">📈 Menganalisis data dan menemukan pola</option>
+            <option value="visualisasi">📊 Membuat grafik yang menarik</option>
+            <option value="intuitif">🤔 Menggunakan statistik untuk pengambilan keputusan</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"> Ketika melihat sebuah tren di media sosial, apa yang kamu lakukan?</label>
+          <select class="form-select" name="q2">
+            <option value="data_enthusiast">🔢 Mencari data untuk mengetahui apakah trennya nyata</option>
+            <option value="visualisasi">📊 Membuat grafik atau diagram untuk memahami tren</option>
+            <option value="intuitif">🤔 Langsung mengikuti tren tanpa berpikir panjang</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"> Bagaimana cara terbaik menilai keakuratan informasi yang viral?</label>
+          <select class="form-select" name="q3">
+            <option value="analitis">📈 Mengecek data dan sumber terpercaya</option>
+            <option value="data_enthusiast">🔢 Membandingkan dengan informasi lain</option>
+            <option value="intuitif">🤔 Percaya saja jika banyak orang membicarakannya</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"> Bagaimana kamu menggunakan statistik dalam kehidupan sehari-hari?</label>
+          <select class="form-select" name="q4">
+            <option value="analitis">📈 Menggunakan data untuk membuat keputusan</option>
+            <option value="data_enthusiast">🔢 Menggunakan statistik dalam olahraga atau hobi</option>
+            <option value="intuitif">🤔 Jarang menggunakan statistik</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"> Saat melihat hasil survei tentang kebiasaan anak muda, apa yang kamu lakukan?</label>
+          <select class="form-select" name="q5">
+            <option value="analitis">📈 Metode penelitian dan sampel survei</option>
+            <option value="visualisasi">📊 Melihat grafik dan diagram untuk memahami hasilnya</option>
+            <option value="intuitif">🤔 Langsung mengikuti kesimpulan survei</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"> Dalam memilih produk di marketplace, apa yang kamu pertimbangkan?</label>
+          <select class="form-select" name="q6">
+            <option value="data_enthusiast">🔢 Melihat rating dan jumlah ulasan</option>
+            <option value="analitis">📈 Membandingkan harga tanpa melihat data lainnya</option>
+            <option value="intuitif">🤔 Membeli yang paling viral di media sosial</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label"> Ketika membuat konten di media sosial, bagaimana kamu menilai efektivitasnya?</label>
+          <select class="form-select" name="q7">
+            <option value="analitis">📈 Menggunakan data insight untuk melihat engagement</option>
+            <option value="intuitif">🤔 Mengikuti intuisi tanpa melihat data</option>
+            <option value="data_enthusiast">🔢 Mencoba berbagai cara tanpa analisis</option>
+          </select>
+        </div>
+        <button type="button" class="btn btn-primary w-100" onclick="hitungHasil()">🔍 Lihat Hasil</button>
+      </form>
+    </div>
+
+    <script>
+      function mulaiKuis() {
+        let nama = document.getElementById("nama").value;
+        if (nama.trim() === "") {
+          alert("Silakan masukkan namamu dulu!");
+          return;
+        }
+        document.getElementById("quizForm").classList.remove("hidden");
+        document.getElementById("namaPeserta").innerText = `Selamat datang, ${nama}! ✨`;
+        document.getElementById("namaPeserta").classList.remove("hidden");
+      }
+
+      function hitungHasil() {
+        let jawaban = document.querySelectorAll(".form-select");
+        let hasil = {};
+
+        jawaban.forEach((select) => {
+          let value = select.value;
+          hasil[value] = (hasil[value] || 0) + 1;
+        });
+
+        let tipe = Object.keys(hasil).reduce((a, b) => (hasil[a] > hasil[b] ? a : b));
+        let hasilText = {
+          analitis: "📈 Si Analitis - Kamu cocok menjadi seorang analis data yang hebat!",
+          data_enthusiast: "🔢 Si Data Enthusiast - Kamu sangat menikmati bermain dengan angka dan data, cocok untuk Statistik!",
+          visualisasi: "📊 Si Visualisasi Master - Kamu suka menyajikan data dengan cara yang menarik, cocok untuk data science dan statistik!",
+          intuitif: "🤔 Si Intuitif - Kamu lebih mengandalkan feeling dalam memahami data, tapi tetap bisa belajar statistik untuk keputusan lebih baik!",
+        };
+
+        let nama = document.getElementById("nama").value;
+        let hasilPage = `
+            <html>
+                <head>
+                    <title>Hasil Kuis</title>
+                    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css'>
+                    <style>
+                        body {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 100vh;
+                            background-color: #eef5ff;
+                            text-align: center;
+                            font-family: 'Poppins', sans-serif;
+                        }
+                        .result-container {
+                            background: white;
+                            padding: 30px;
+                            border-radius: 10px;
+                            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                            max-width: 500px;
+                        }
+                        .icon {
+                            font-size: 50px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class='result-container'>
+                        <div class='icon'>${hasilText[tipe].split(" ")[0]}</div>
+                        <h2>📊 Quiz Result 📊</h2>
+                        <h3>Halo ${nama},</h3>
+                        <p>${hasilText[tipe].substring(2)}</p>
+                        <a href='trying.html' class='btn btn-primary mt-3'>🔄 Coba Lagi</a>
+                    </div>
+                </body>
+            </html>`;
+        let newWindow = window.open();
+        newWindow.document.write(hasilPage);
+      }
+    </script>
+  </body>
+</html>
